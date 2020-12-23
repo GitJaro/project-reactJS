@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang = "pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<!-- core reacta--> 
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<!-- biblioteka react doom odpowiedzialna za renderowanie tej aplikacji-->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<!-- babel dodajace nowe funkcjonalnosci do kodu js-->
+</head>
+<body>
+
+<div id= "app"></div> <!-- div czyli elelement w ktorym mozna umiescic aplikacje z jakims id do znajdywania-->
+
+<script type="text/babel">
+const Dates = () =>
+{
+    const [showInfoState, setShowInfoState] = React.useState(true)
+    const daty = ['16.04.2020', '17.09.2020', '19.11.2020', '10.12.2020']
+    const listaDat = daty.map(data => <li key={data}>{data}</li>)
+    const toggleInfo = () => setShowInfoState(!showInfoState)
+    
+    return(
+    <div>{showInfoState ? <ul>{listaDat}</ul> : 'No access to dates allowed, CDPR probably blocked them'}
+    <button onClick = {toggleInfo}>Toggle info</button>
+    </div>
+    )
+}
+
+class Headline extends React.Component
+{
+    state = {
+        title : 'Welcome to my website about Cyberpunks premieres',
+        underTitle : 'Here is a list of all premieres:'
+    }
+    render() //JSX
+    {
+        const hackThePage = () => 
+        {
+        this.setState({title: 'Welcome to the fanpage dedicated to the best game of 2020!'})
+        this.setState({underTitle: 'Cyberpunk is great and the dates below are just a proof of how the game was polished so well ;)'})
+        }
+
+        const changeTitle = () =>
+        {
+            this.setState({title: 'Welcome to a funpage about random dates'})
+            this.setState({underTitle: 'randomly generated dates: '})
+
+        }
+
+         return (
+        <div>
+            <h1>{this.state.title}</h1>
+            <p>{this.state.underTitle}</p>
+        
+            <Dates />
+            <p> </p>
+
+            <button onClick = {changeTitle}>Change the page</button>
+            <p> </p>
+
+            <button onClick = {hackThePage}>Hack the page</button>
+        </div>
+        )
+
+
+    }
+}
+    
+
+
+ReactDOM.render(<Headline />, document.querySelector('#app'))
+</script>
+
+</body>
+</html>
